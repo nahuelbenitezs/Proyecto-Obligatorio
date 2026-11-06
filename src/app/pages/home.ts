@@ -143,7 +143,7 @@ export class Home implements AfterViewInit, OnDestroy {
     this.pinned = true;
     street.classList.add('pinned');
     const fit = () => (street.style.height = `${track.scrollWidth - innerWidth + innerHeight}px`);
-    const ro = new ResizeObserver(fit);
+    const ro = new ResizeObserver(() => requestAnimationFrame(fit));
     ro.observe(track);
     this.stops.push(() => ro.disconnect());
     this.stops.push(scroll((p: number) => {
