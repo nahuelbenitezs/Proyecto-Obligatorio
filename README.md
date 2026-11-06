@@ -1,6 +1,6 @@
 # eMercado
 
-E-commerce de demostración con estética de feria uruguaya, hecho con Angular y Motion. Nació como obligatorio de Jóvenes a Programar en HTML, CSS y JavaScript, y lo migré y rediseñé por completo.
+E-commerce de demostración con fondo WebGL propio y scroll coreografiado, hecho con Angular, Motion y Lenis. Nació como obligatorio de Jóvenes a Programar en HTML, CSS y JavaScript, y lo migré y rediseñé por completo.
 
 **Probalo:** https://nahuelbenitezs.github.io/Proyecto-Obligatorio/
 
@@ -15,7 +15,7 @@ E-commerce de demostración con estética de feria uruguaya, hecho con Angular y
 - Bolsa con cantidades, conversión de UYU a USD, envíos y pago simulado.
 - Formulario para vender con cálculo de comisión y vista previa de fotos.
 - Ingreso de demostración, con Google opcional, y perfil guardado en el navegador.
-- Títulos que se ensanchan al bajar, fotos atadas al scroll y transiciones entre páginas. Todo se apaga con `prefers-reduced-motion`.
+- Portada con fotos líquidas en WebGL, calle de scroll horizontal, tarjetas apiladas y transiciones entre páginas con foto compartida. Todo se apaga con `prefers-reduced-motion`.
 
 ## Datos
 
