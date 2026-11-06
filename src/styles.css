@@ -226,6 +226,8 @@ legend { padding: 0 0.4rem; font-weight: 850; }
   .row { grid-template-columns: 1fr 1fr; }
   .fields { grid-template-columns: 1fr; }
   .avatar img { max-width: 11rem; }
+  .range label { flex: 1 1 40%; }
+  .range input { width: 100%; }
   .segmented { width: 100%; }
   .segmented button { flex: 1; }
 }

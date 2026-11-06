@@ -64,7 +64,9 @@ export async function flyToBag(source: HTMLElement | null) {
   const ghost = source.cloneNode(true) as HTMLElement;
   Object.assign(ghost.style, { position: 'fixed', left: `${a.left}px`, top: `${a.top}px`, width: `${a.width}px`, height: `${a.height}px`, zIndex: '100', margin: '0', pointerEvents: 'none', objectFit: 'cover', transformOrigin: 'top left' });
   document.body.append(ghost);
-  await animate(ghost, { x: [0, b.left - a.left], y: [0, b.top - a.top], scale: [1, b.width / a.width], rotate: [0, 18] }, { duration: 0.48, ease: [0.5, 0, 0.2, 1] }).finished;
+  const flight = animate(ghost, { x: [0, b.left - a.left], y: [0, b.top - a.top], scale: [1, b.width / a.width], rotate: [0, 18] }, { duration: 0.48, ease: [0.5, 0, 0.2, 1] });
+  // Con la pestaña oculta la animación no avanza: comprar no puede quedar esperándola.
+  await Promise.race([flight.finished, new Promise((r) => setTimeout(r, 700))]);
   ghost.remove();
   animate(bag, { scale: [1.5, 1], rotate: [-12, 0] }, { duration: 0.28, ease: EASE });
 }
