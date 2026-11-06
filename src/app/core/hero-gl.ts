@@ -80,7 +80,7 @@ export function startHeroGl(canvas: HTMLCanvasElement, urls: string[], onSlide: 
   io.observe(canvas);
 
   function frame(now: number) {
-    if (stopped || !visible) return;
+    if (stopped || !visible || !texs.length) return;
     const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
     last = now;
     mx += (tx - mx) * 0.08; my += (ty - my) * 0.08; force += (targetForce - force) * 0.05;

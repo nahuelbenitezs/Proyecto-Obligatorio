@@ -55,7 +55,9 @@ const MANIFESTO = 'Autos, juguetes, muebles y computadoras. Una feria entera en 
               <small>{{ c.productCount }} artículos</small>
             </a>
           }
-          <a class="booth booth-end" routerLink="/vender"><h3>Armá el tuyo</h3><small>Publicá un producto de prueba</small></a>
+          @if (cats().length) {
+            <a class="booth booth-end" routerLink="/vender"><h3>Armá el tuyo</h3><small>Publicá un producto de prueba</small></a>
+          }
         </div>
       </div>
     </section>
