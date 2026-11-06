@@ -37,7 +37,7 @@ import { Reveal } from '../core/motion';
           <div class="checkout-fields">
             <fieldset><legend>Tipo de envío</legend>
               @for (s of shipping; track s.id) {
-                <label class="pick"><input type="radio" name="ship" [value]="s.id" [(ngModel)]="ship" (ngModelChange)="rate.set(rateOf($event))" /> <span><b>{{ s.label }}</b> {{ s.days }} ({{ s.rate * 100 }}%)</span></label>
+                <label class="pick"><input type="radio" name="ship" [value]="s.id" [(ngModel)]="ship" (ngModelChange)="rate.set(rateOf($event))" /> <span><b>{{ s.label }}</b> {{ s.days }} ({{ pct(s.rate) }}%)</span></label>
               }
               @if (tried() && !ship) { <p class="err">Elegí un tipo de envío.</p> }
             </fieldset>
@@ -86,6 +86,7 @@ export class Cart {
   readonly totals = computed(() => cartTotals(this.cart.items(), this.rate()));
   ship = ''; street = ''; number = ''; corner = ''; method = ''; card = ''; exp = ''; cvv = ''; account = '';
 
+  pct = (r: number) => Math.round(r * 100);
   rateOf = (id: string) => SHIPPING.find((s) => s.id === id)?.rate ?? 0;
   lineTotal = (i: CartItem) => round2(toUsd(i.unitCost, i.currency) * i.count);
   paymentError() {

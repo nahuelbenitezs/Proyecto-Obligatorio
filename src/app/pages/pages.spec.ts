@@ -108,6 +108,14 @@ describe('páginas', () => {
     expect(localStorage.getItem('carrito')).toBe('[]');
   });
 
+  it('carrito: los porcentajes de envío se ven redondos', async () => {
+    setup([Cart]);
+    TestBed.inject(CartService).add(product);
+    const f = TestBed.createComponent(Cart);
+    await flush(f);
+    for (const s of ['(15%)', '(7%)', '(5%)']) expect(text(f)).toContain(s);
+  });
+
   it('carrito: transferencia pide cuenta', () => {
     setup([Cart]);
     const c = TestBed.createComponent(Cart).componentInstance;
