@@ -16,6 +16,9 @@ export const stamp = (d: Date) =>
   imports: [FormsModule, RouterLink, Reveal],
   template: `
     @if (error()) { <section class="page"><h1 class="title">Producto no encontrado</h1><a class="btn" routerLink="/categorias">Ver los puestos</a></section> }
+    @if (!p() && hint) {
+      <section class="page product"><div class="gallery"><div class="gallery-main"><img [src]="hint" alt="" /></div></div></section>
+    }
     @if (p(); as p) {
       <section class="page product">
         <div class="gallery" role="group" aria-roledescription="carrusel" [attr.aria-label]="'Imágenes de ' + p.name">
@@ -82,6 +85,8 @@ export class ProductPage {
   private cart = inject(CartService);
   private router = inject(Router);
   readonly session = inject(SessionService);
+  /** Foto de la tarjeta tocada: permite que viaje hasta acá antes de que lleguen los datos. */
+  readonly hint: string | undefined = this.router.currentNavigation()?.extras.state?.['foto'];
   readonly id = input.required<string>();
   readonly p = signal<Product | null>(null);
   readonly error = signal(false);

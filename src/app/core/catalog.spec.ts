@@ -1,4 +1,4 @@
-import { cartTotals, listCategories, listProducts, publicationTotal, toUsd } from './catalog';
+import { topSold, cartTotals, listCategories, listProducts, publicationTotal, toUsd } from './catalog';
 import { Category, ProductSummary } from './models';
 
 const cats = [{ id: 1, name: 'Muebles', productCount: '4' }, { id: 2, name: 'Autos', productCount: '5' }, { id: 3, name: 'Deporte', productCount: '0' }] as Category[];
@@ -32,6 +32,13 @@ describe('catálogo', () => {
   it('busca por nombre o descripción y combina con rango', () => {
     expect(ids(listProducts(prods, null, none, 'SOFÁ'))).toEqual([1, 2]);
     expect(ids(listProducts(prods, null, { min: 200, max: 300 }, 'sofá'))).toEqual([2]);
+  });
+});
+
+describe('más vendidos', () => {
+  it('toma los primeros sin alterar la lista', () => {
+    expect(ids(topSold(prods, 2))).toEqual([2, 3]);
+    expect(ids(prods)).toEqual([1, 2, 3]);
   });
 });
 

@@ -5,7 +5,7 @@ import { SessionService } from './core/session.service';
 const loggedIn = () => inject(SessionService).loggedIn() || inject(Router).createUrlTree(['/ingresar']);
 
 export const routes: Routes = [
-  { path: '', title: 'eMercado — la feria en tu pantalla', loadComponent: () => import('./pages/home').then((m) => m.Home) },
+  { path: '', title: 'eMercado: la feria en tu pantalla', loadComponent: () => import('./pages/home').then((m) => m.Home) },
   { path: 'categorias', title: 'Categorías · eMercado', loadComponent: () => import('./pages/categories').then((m) => m.Categories) },
   { path: 'categorias/:id', title: 'Productos · eMercado', loadComponent: () => import('./pages/products').then((m) => m.Products) },
   { path: 'producto/:id', title: 'Producto · eMercado', loadComponent: () => import('./pages/product').then((m) => m.ProductPage) },

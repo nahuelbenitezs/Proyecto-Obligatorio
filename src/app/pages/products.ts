@@ -30,7 +30,7 @@ import { Reveal } from '../core/motion';
       @if (error()) { <p class="alert" role="alert">Este puesto no existe o no pudimos cargarlo.</p> }
       <div class="grid">
         @for (p of shown(); track p.id; let i = $index) {
-          <a class="tile" [routerLink]="['/producto', p.id]" appReveal [delay]="(i % 3) * 0.06">
+          <a class="tile" [routerLink]="['/producto', p.id]" [state]="{ foto: p.image }" (click)="name($event)" appReveal [delay]="(i % 3) * 0.06">
             <div class="tile-photo"><img [src]="p.image" [alt]="p.name" loading="lazy" /></div>
             <span class="tag">{{ p.currency }} {{ fmt(p.cost) }}</span>
             <h2>{{ p.name }}</h2>
@@ -69,6 +69,10 @@ export class Products {
         .then((r) => { this.all.set(r.products); this.catName.set(r.catName); document.title = `${r.catName} · eMercado`; })
         .catch(() => this.error.set(true));
     });
+  }
+  name(e: Event) {
+    const img = (e.currentTarget as HTMLElement).querySelector('img');
+    if (img) img.style.viewTransitionName = 'foto';
   }
   apply(e: Event) { e.preventDefault(); this.range.set({ min: this.min, max: this.max }); }
   clear() { this.min = this.max = null; this.range.set({ min: null, max: null }); }

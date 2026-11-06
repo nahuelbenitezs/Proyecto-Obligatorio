@@ -5,6 +5,7 @@ import { Product } from '../core/models';
 import { SessionService } from '../core/session.service';
 import { Cart } from './cart';
 import { Categories } from './categories';
+import { Home } from './home';
 import { Login, decodeJwt } from './login';
 import { ProductPage, stamp } from './product';
 import { Products } from './products';
@@ -35,6 +36,15 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('páginas', () => {
+  it('portada: muestra puestos y más vendidos reales, sin WebGL ni movimiento', async () => {
+    setup([Home]);
+    const f = TestBed.createComponent(Home);
+    await flush(f); await flush(f);
+    for (const s of ['Ver los puestos', 'Autos', 'Recorré los puestos', 'Fiat']) expect(text(f)).toContain(s);
+    expect(f.nativeElement.querySelector('h1').getAttribute('aria-label')).toBe('eMercado');
+    expect(f.nativeElement.querySelector('.stack-card h2').textContent).toBe('Fiat');
+  });
+
   it('categorías: lista, ordena y filtra por cantidad', async () => {
     setup([Categories]);
     const f = TestBed.createComponent(Categories);

@@ -30,6 +30,8 @@ export function listProducts(items: ProductSummary[], sort: ProductSort | null, 
   return out;
 }
 
+export const topSold = (items: ProductSummary[], n: number) => [...items].sort((a, b) => b.soldCount - a.soldCount).slice(0, n);
+
 export const SHIPPING = [
   { id: 'premium', label: 'Premium', days: '2 a 5 días', rate: 0.15 },
   { id: 'express', label: 'Express', days: '5 a 8 días', rate: 0.07 },

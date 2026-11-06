@@ -1,6 +1,11 @@
 import { Directive, ElementRef, OnDestroy, OnInit, inject, input } from '@angular/core';
 import { animate, inView, scroll } from 'motion';
 
+let intro = 0;
+/** Segundos que falta para que termine la pantalla de entrada. */
+export const introDelay = () => intro;
+export const setIntroDelay = (s: number) => (intro = s);
+
 const EASE = [0.16, 1, 0.3, 1] as const;
 export const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? true;
 
@@ -53,6 +58,21 @@ export class Drift implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() { this.stop?.(); }
+}
+
+/** El botón se deja atraer apenas por el puntero. */
+@Directive({ selector: '[appMagnetic]', host: { '(pointermove)': 'move($event)', '(pointerleave)': 'leave()' } })
+export class Magnetic {
+  private el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  move(e: PointerEvent) {
+    if (e.pointerType !== 'mouse' || reducedMotion()) return;
+    const b = this.el.getBoundingClientRect();
+    animate(this.el, { x: (e.clientX - b.left - b.width / 2) * 0.28, y: (e.clientY - b.top - b.height / 2) * 0.28 }, { duration: 0.3, ease: EASE });
+  }
+  leave() {
+    if (reducedMotion()) return;
+    animate(this.el, { x: 0, y: 0 }, { type: 'spring', stiffness: 200, damping: 12 });
+  }
 }
 
 /** Una copia de la foto vuela hasta la bolsa y la bolsa acusa recibo. */
